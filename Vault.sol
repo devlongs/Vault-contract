@@ -20,22 +20,20 @@ contract Vault {
         uint time;
         bool status;
     }
+
     mapping(uint => BeneficiaryProperties) public _beneficiaryProperties;
 
     modifier onlyOwner() {
         require(msg.sender == owner, "not owner");
         _;
     }
+
     uint[] id;
     BeneficiaryProperties[] public bp;
 
     modifier hasTimeElapse(uint _id) {
         BeneficiaryProperties memory BP = _beneficiaryProperties[_id];
         require(block.timestamp >= BP.time, "time never reach");
-        //000000 setting time
-        //111111 // value set to(BP.time)
-        //222222 // coming to withdraw(Blocktime)
-
         _;
     }
 
